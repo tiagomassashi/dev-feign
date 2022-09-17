@@ -2,6 +2,7 @@ package br.com.nagata.dev.controller;
 
 import br.com.nagata.dev.exception.BusinessException;
 import br.com.nagata.dev.service.FeignService;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class FeignController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<?> getCustomerById(@PathVariable Long id) throws BusinessException {
+  public ResponseEntity<JsonNode> getCustomerById(@PathVariable Long id) throws BusinessException {
     return ResponseEntity.ok(feignService.getCustomerById(id));
   }
 }

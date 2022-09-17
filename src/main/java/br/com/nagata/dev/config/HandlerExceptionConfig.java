@@ -1,6 +1,7 @@
 package br.com.nagata.dev.config;
 
 import br.com.nagata.dev.exception.BusinessException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 public class HandlerExceptionConfig {
 
   @ExceptionHandler(BusinessException.class)
-  public ResponseEntity<?> handlerBusinessException(BusinessException ex, WebRequest request) {
+  public ResponseEntity<JsonNode> handlerBusinessException(BusinessException ex, WebRequest request) {
     log.error("handlerBusinessException");
     log.trace("handlerBusinessException WebRequest: {}", request);
     log.error("handlerBusinessException StackTrace: {}", ex.getMessage());
@@ -27,7 +28,7 @@ public class HandlerExceptionConfig {
   }
 
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<?> handlerException(Exception ex, WebRequest request) {
+  public ResponseEntity<JsonNode> handlerException(Exception ex, WebRequest request) {
     log.error("handlerBusinessException");
     log.trace("handlerBusinessException WebRequest: {}", request);
     log.error("handlerBusinessException StackTrace: {}", ex.getMessage());
@@ -35,7 +36,7 @@ public class HandlerExceptionConfig {
     return formatMessage(HttpStatus.INTERNAL_SERVER_ERROR, ex);
   }
 
-  private ResponseEntity<?> formatMessage(HttpStatus code, Exception ex) {
+  private ResponseEntity<JsonNode> formatMessage(HttpStatus code, Exception ex) {
     ObjectNode json = new ObjectNode(JsonNodeFactory.instance);
     json.put("timestamp", LocalDateTime.now().toString());
     json.put("status", code.value());
