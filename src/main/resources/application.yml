@@ -1,0 +1,35 @@
+# Propriedades da aplicacao Spring Boot
+spring:
+  application:
+    name: dev-feign
+
+# Dados exibidos no endpoint "info" do Actuator
+info:
+  app:
+    groupId: "@project.groupId@"
+    artifactId: "@project.artifactId@"
+    version: "@project.version@"
+    java.version: "@java.version@"
+
+# Servicos externos
+clients:
+  dev-specification: http://localhost:8085/dev-specification
+
+# Server
+server:
+  port: 8080
+  servlet:
+    context-path: /dev-feign
+
+# Configuracao do Actuator
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  info:
+    env:
+      enabled: true
