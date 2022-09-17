@@ -25,7 +25,7 @@ public class FeignService {
       response = specificationClient.getCustomerById(id);
     } catch (FeignException e) {
       throw new BusinessException(
-          e.status() == -1 ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.valueOf(e.status()),
+          e.status() == -1 ? HttpStatus.BAD_REQUEST : HttpStatus.valueOf(e.status()),
           e.getMessage());
     }
     return response.getBody();
